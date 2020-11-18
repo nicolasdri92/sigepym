@@ -1,0 +1,27 @@
+{
+  "items": [
+    { "title": "home", "link": "/home", "image": "home" },
+    { "title_group": "ingresos", "link": "/ingresos" },
+    { "title": "presupuestos", "link": "/presupuestos", "image": "calculate" },
+    { "title": "ventas", "link": "/ventas", "image": "point_of_sale" },
+    {
+      "title": "otros ingresos",
+      "link": "/otros ingresos",
+      "image": "account_balance_wallet"
+    },
+    { "title_group": "egresos", "link": "egresos" },
+    { "title": "compras", "link": "/compras", "image": "shopping_cart" },
+    { "title": "gastos", "link": "/gastos", "image": "credit_card" },
+    { "title_group": "base de datos", "link": "/base-de-datos" },
+    { "title": "clientes", "link": "/base-de-datos/cliente", "image": "group" },
+    { "title": "productos", "link": "/base-de-datos/producto", "image": "emoji_objects" },
+    {
+      "title": "proveedores",
+      "link": "/base-de-datos/proveedor",
+      "image": "local_shipping"
+    },
+    { "title_group": "informes", "link": "/informes" },
+    { "title_group": "tesorería", "link": "/tesoreria" },
+    { "title_group": "operaciones", "link": "/operaciones" }
+  ]
+}

@@ -1,0 +1,53 @@
+<div id="register">
+  <div class="register-img"></div>
+  <div class="register-title">
+    <h4 class="title">REGISTRARSE</h4>
+    <p class="subtitle">
+      ¡Hola! registrate y empieza a<br />
+      gestionar tu empresa
+    </p>
+  </div>
+  <div class="register-form">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <div class="form-item">
+        <label>Email</label>
+        <input
+          type="email"
+          placeholder="admin@admin.com"
+          formControlName="email"
+        />
+        <app-control-messages
+          class="errMessage"
+          [control]="f['email']"
+        ></app-control-messages>
+      </div>
+      <div class="form-item">
+        <label>Password</label>
+        <input
+          type="password"
+          placeholder="********"
+          formControlName="password"
+        />
+        <app-control-messages
+          class="errMessage"
+          [control]="f['password']"
+        ></app-control-messages>
+      </div>
+      <div class="form-item">
+        <label id="checkbox">
+          <input type="checkbox" formControlName="checkbox" required />
+          Estoy de acuerdo con los <a [routerLink]="">terminos de servicios.</a>
+        </label>
+      </div>
+      <div class="form-item">
+        <button type="submit" [disabled]="registerForm.invalid">
+          <span>Registrarse ahora</span>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="register-login">
+    <span>¿Ya tienes una cuenta Sigepym?</span>
+    <a [routerLink]="['/auth/login']">¡Ingresa ahora!</a>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+@import "libs/mixins";
+
+#client {
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  gap: 25px;
+  padding: 25px 50px;
+  .client-header {
+    border-bottom: 2px solid #e0e0e0;
+    grid-column: 1 / -1;
+    display: flex;
+    padding-bottom: 5px;
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+    }
+    .tabs {
+      margin-left: auto;
+      ul {
+        align-items: flex-end;
+        display: flex;
+        gap: 5px;
+        height: 100%;
+        li {
+          span {
+            color: #414141;
+            font-size: 14px;
+            font-weight: 200;
+          }
+        }
+      }
+    }
+  }
+  .client-btn {
+    grid-column: 1 / -1;
+    display: flex;
+    .search {
+      align-items: center;
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      display: flex;
+      gap: 10px;
+      padding: 5px 10px;
+      i {
+      }
+      input {
+        border: none;
+        width: 350px;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+    .client-add {
+      margin-left: auto;
+      @include box-shadow(0px, 0px, 20px, 0px, rgba(0, 0, 0, 0.25));
+    }
+  }
+  .client-table {
+    grid-column: 1 / -1;
+  }
+}

@@ -1,0 +1,63 @@
+#header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  height: 100%;
+  padding: 0 50px;
+  .btn-header {
+    height: 100%;
+    ul {
+      display: flex;
+      height: 100%;
+      li {
+        button {
+          background-color: #f8f9fd;
+          border: none;
+          border-bottom: 2px solid #eeeeee;
+          cursor: pointer;
+          height: 100%;
+          margin: 0 5px;
+          padding: 10px;
+          i {
+            color: #6f829a;
+            font-size: 20px;
+          }
+          &.active {
+            background-color: #bc1ea3;
+          }
+        }
+      }
+    }
+  }
+  .user-header {
+    align-items: center;
+    display: flex;
+    color: #6f829a;
+    .separator {
+      border-left: 3px solid #f6f7fb;
+      height: 100%;
+      margin: 0 10px;
+    }
+    .user-image {
+      span {
+        border: 3px solid #90d6b4;
+        border-radius: 100%;
+        display: grid;
+        padding: 3px;
+        img {
+          border-radius: 100%;
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+    .user-name {
+      font-size: 15px;
+      margin: 0 10px;
+    }
+    .btn-dropdown {
+      i {
+        cursor: pointer;
+      }
+    }
+  }
+}

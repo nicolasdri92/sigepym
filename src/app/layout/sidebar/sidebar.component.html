@@ -1,0 +1,27 @@
+<div id="sidebar">
+  <img src="" alt="" />
+  <ul *ngFor="let item of items">
+    <li
+      class="item-group"
+      *ngIf="item.title_group"
+      [routerLink]="item.link"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <h3>
+        <span>{{ item.title_group | titlecase }}</span>
+      </h3>
+    </li>
+    <li
+      class="item"
+      *ngIf="item.title"
+      [routerLink]="item.link"
+      routerLinkActive="active"
+    >
+      <div class="box-item">
+        <i class="material-icons">{{ item.image }}</i>
+        <span>{{ item.title | titlecase }}</span>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,26 @@
+<div id="header">
+  <div class="btn-header">
+    <ul>
+      <li *ngFor="let btn of btn_header">
+        <button [routerLink]="btn.link" routerLinkActive="active">
+          <i class="material-icons">{{ btn.image }}</i>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="user-header">
+    <div class="separator"></div>
+    <div class="user-image">
+      <span>
+        <img src="../../../assets/img/test.png" alt="" />
+      </span>
+    </div>
+    <div class="user-name">
+      <span>Maria Liz <b>Diaz</b></span>
+    </div>
+    <div class="btn-dropdown">
+      <i class="material-icons">more_vert</i>
+    </div>
+  </div>
+</div>

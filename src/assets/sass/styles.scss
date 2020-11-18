@@ -1,0 +1,18 @@
+@import "../css/_reset.css";
+
+*:focus {
+  outline: none;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", "Helvetica Neue", sans-serif;
+}
+
+.mat-dialog-container {
+  padding: 0 !important;
+}

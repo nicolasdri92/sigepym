@@ -1,0 +1,27 @@
+<div id="client">
+  <div class="client-header">
+    <h2>
+      {{ title | uppercase }}
+    </h2>
+    <div class="tabs">
+      <ul>
+        <li *ngFor="let tab of tabs">
+          <span>{{ tab.title }} ({{ tab.count }})</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="client-btn">
+    <div class="search">
+      <i class="material-icons">search</i>
+      <input type="search" placeholder="Buscar Cliente ..." />
+    </div>
+    <div class="client-add">
+      <app-button
+        [data]="btn_add"
+        (click)="openDialog()"
+      ></app-button>
+    </div>
+  </div>
+  <div class="client-table">table</div>
+</div>

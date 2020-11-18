@@ -1,0 +1,57 @@
+<div id="login">
+  <div class="login-img"></div>
+  <div class="login-title">
+    <h4 class="title">INICIAR SESIÓN</h4>
+    <p class="subtitle">
+      ¡Hola! inicia sesión y empieza a<br />
+      gestionar tu empresa
+    </p>
+  </div>
+  <div class="login-form">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="form-item">
+        <label>Email</label>
+        <input
+          type="email"
+          placeholder="admin@admin.com"
+          formControlName="email"
+        />
+        <app-control-messages
+          class="errMessage"
+          [control]="f['email']"
+        ></app-control-messages>
+      </div>
+      <div class="form-item">
+        <label>Password</label>
+        <input
+          type="password"
+          maxlength="21"
+          placeholder="********"
+          formControlName="password"
+        />
+        <app-control-messages
+          class="errMessage"
+          [control]="f['password']"
+        ></app-control-messages>
+      </div>
+      <div class="form-item">
+        <label id="checkbox">
+          <input type="checkbox" formControlName="checkbox" />
+          Mantener sesión abierta
+        </label>
+      </div>
+      <div class="form-item">
+        <button type="submit" [disabled]="loginForm.invalid">
+          <span>Iniciar sesión ahora</span>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="login-forget">
+    <span>¿Contraseña olvidada?</span>
+  </div>
+  <div class="login-signup">
+    <span>¿No tienes una cuenta Sigepym?</span>
+    <a [routerLink]="['/auth/register']">¡Regístrate ahora!</a>
+  </div>
+</div>
