@@ -16,14 +16,16 @@ import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { ContentComponent } from './layout/content/content.component';
 
+const Components = [
+  AppComponent,
+  AuthComponent,
+  HeaderComponent,
+  SidebarComponent,
+  ContentComponent,
+];
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    AuthComponent,
-    HeaderComponent,
-    SidebarComponent,
-    ContentComponent,
-  ],
+  declarations: [Components],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
