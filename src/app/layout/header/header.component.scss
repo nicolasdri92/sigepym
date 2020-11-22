@@ -37,6 +37,10 @@
       height: 100%;
       margin: 0 10px;
     }
+    .user-name {
+      font-size: 15px;
+      margin: 0 10px;
+    }
     .user-image {
       span {
         border: 3px solid #90d6b4;
@@ -48,15 +52,6 @@
           width: 30px;
           height: 30px;
         }
-      }
-    }
-    .user-name {
-      font-size: 15px;
-      margin: 0 10px;
-    }
-    .btn-dropdown {
-      i {
-        cursor: pointer;
       }
     }
   }

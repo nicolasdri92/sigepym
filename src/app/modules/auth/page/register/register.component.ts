@@ -6,11 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
-import { catchError, finalize, tap } from 'rxjs/operators';
 
 // Services
-import { HttpService } from '../../../../shared/services/http/http.service';
+import { AuthService } from '../../../../core/services/auth.service';
 
 // Material
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -28,7 +26,7 @@ export class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private httpService: HttpService,
+    private _authService: AuthService,
     private snackBar: MatSnackBar
   ) {
     this.buildForm();
@@ -39,25 +37,22 @@ export class RegisterComponent {
   }
 
   register(): void {
-    const credentials = this.registerForm.value;
+    const credentials = {
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password,
+    };
 
-    this.httpService
-      .post('/register', credentials)
-      .pipe(
-        tap((res) => {
-          this.message = res.message;
-          // localStorage.setItem('token', res.token);
-          localStorage.setItem('user', JSON.stringify(res.user));
-          this.router.navigate(['/dashboard/login']);
-        }),
-        finalize(() => {
-          this.snackBar.open(this.message, 'OK', {
-            duration: 3000,
-          });
-        }),
-        catchError((error) => of((this.err = error)))
-      )
-      .subscribe();
+    this._authService.register(credentials).subscribe(
+      (res) => {
+        this.snackBar.open(res.message, 'OK', {
+          duration: 3000,
+        });
+        this.router.navigate(['/auth/login']);
+      },
+      (err) => {
+        this.err = err.error.message;
+      }
+    );
   }
 
   private buildForm(): void {

@@ -6,10 +6,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
 
-import { HttpService } from '../../../../shared/services/http/http.service';
+// Services
+import { AuthService } from '../../../../core/services/auth.service';
+import { TokenService } from '../../../../core/services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -18,12 +18,14 @@ import { HttpService } from '../../../../shared/services/http/http.service';
 })
 export class LoginComponent {
   err: string;
+  message: string;
   loginForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private httpService: HttpService
+    private _authService: AuthService,
+    private _tokenService: TokenService
   ) {
     this.buildForm();
   }
@@ -33,18 +35,20 @@ export class LoginComponent {
   }
 
   login(): void {
-    const credentials = this.loginForm.value;
+    const credentials = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password,
+    };
 
-    this.httpService
-      .post('/login', credentials)
-      .pipe(
-        tap((res) => {
-          localStorage.setItem('token', res.token);
-          this.router.navigate(['/home']);
-        }),
-        catchError((error) => of((this.err = error)))
-      )
-      .subscribe();
+    this._authService.login(credentials).subscribe(
+      (res) => {
+        this._tokenService.setToken(res.token);
+        this.router.navigate(['/home']);
+      },
+      (err) => {
+        this.err = err.error.message;
+      }
+    );
   }
 
   private buildForm(): void {

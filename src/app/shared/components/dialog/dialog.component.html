@@ -1,19 +1,12 @@
 <div class="dialog-box">
   <div class="dialog-header">
     <h3>
-      <span>{{ title }}</span>
+      <span>{{ data.title }}</span>
     </h3>
-    <div class="tabs">
-      <app-tab
-        [tabList]="data.tab"
-        [tabSelected]="tabSelected"
-        (click)="onTabClick($event.target)"
-      ></app-tab>
-    </div>
   </div>
 
   <div class="dialog-content">
-    <ng-container *ngTemplateOutlet="client"> </ng-container>
+    <ng-container *ngTemplateOutlet="data.template"> </ng-container>
   </div>
 
   <div class="dialog-footer">
@@ -27,48 +20,4 @@
   </div>
 </div>
 
-<ng-template #client>
-  <ng-container *ngTemplateOutlet="template"></ng-container>
-  
-</ng-template>
 
-<ng-template #general>
-  <form [formGroup]="data.form">
-    <ul>
-      <li *ngFor="let item of data.itemList.general" [ngClass]="item.name">
-        <label>{{ item.title }}</label>
-        <app-input
-          *ngIf="item.type !== 'select'"
-          [data]="item.type"
-          [formControlName]="item.name"
-        ></app-input>
-        <app-select
-          *ngIf="item.type === 'select'"
-          [data]="item.type"
-          [formControlName]="item.name"
-        ></app-select>
-      </li>
-    </ul>
-  </form>
-</ng-template>
-
-<ng-template #salesAndBilling>
-  <form [formGroup]="data.form">
-    <ul>
-      <li *ngFor="let item of data.itemList.salesAndBilling.partOne" [ngClass]="item.name">
-        <label>{{ item.title }}</label>
-        <app-input
-          *ngIf="item.type !== 'select'"
-          [data]="item.type"
-          [formControlName]="item.name"
-        ></app-input>
-        <app-select
-          *ngIf="item.type === 'select'"
-          [data]="item.type"
-          [formControlName]="item.name"
-        ></app-select>
-      </li>
-      <i class="material-icons">hdr_strong</i>
-    </ul>
-  </form>
-</ng-template>

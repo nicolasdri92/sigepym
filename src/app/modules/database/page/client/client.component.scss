@@ -42,8 +42,6 @@
       display: flex;
       gap: 10px;
       padding: 5px 10px;
-      i {
-      }
       input {
         border: none;
         width: 350px;
@@ -60,4 +58,113 @@
   .client-table {
     grid-column: 1 / -1;
   }
+}
+
+.dialog-content {
+  padding: 20px;
+  ul {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px 50px;
+    li {
+      display: grid;
+      row-gap: 5px;
+      label {
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: capitalize;
+      }
+      &.business,
+      &.email,
+      &.code,
+      &.sales_category,
+      &.billing_business,
+      &.billing_email,
+      &.billing_code {
+        grid-column: 1 / 3;
+      }
+      &.name,
+      &.web,
+      &.city,
+      &.sales_discount,
+      &.billing_name,
+      &.billing_web,
+      &.billing_city {
+        grid-column: 3 / 5;
+      }
+      &.surname,
+      &.address,
+      &.state,
+      &.observation,
+      &.sales_observation,
+      &.billing_surname,
+      &.billing_address,
+      &.billing_state,
+      &.billing_observation {
+        grid-column: 5 / 7;
+      }
+    }
+    .label-box {
+      grid-column: 1/-1;
+      padding: 5px 15px;
+      display: flex;
+      column-gap: 10px;
+      align-items: center;
+      background-color: #9a9ea9;
+      color: #fff;
+      margin: 10px 0 5px;
+      label {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      i {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1216px) and (max-width: 1407px) {
+  .dialog-content {
+    ul {
+      grid-template-columns: repeat(8, 1fr);
+      li {
+        &.business,
+        &.web,
+        &.state,
+        &.sales_category,
+        &.billing_business,
+        &.billing_web,
+        &.billing_state {
+          grid-column: 1 / 3;
+        }
+        &.name,
+        &.address,
+        &.code,
+        &.sales_discount,
+        &.billing_name,
+        &.billing_address,
+        &.billing_code {
+          grid-column: 3 / 5;
+        }
+        &.surname,
+        &.city,
+        &.sales_observation,
+        &.billing_surname,
+        &.billing_city {
+          grid-column: 5 / 7;
+        }
+        &.email,
+        &.observation,
+        &.billing_email,
+        &.billing_observation {
+          grid-column: 7 / 9;
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1024px) and (max-width: 1215px) {
+}
+@media screen and (max-width: 1023px) {
 }

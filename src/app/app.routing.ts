@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+// Guards
+import { AuthGuard } from './core/guards/auth.guard';
+
+// Components
 import { AuthComponent } from './layout/auth/auth.component';
 import { ContentComponent } from './layout/content/content.component';
 
@@ -19,7 +23,7 @@ const routes: Routes = [
   {
     path: '',
     component: ContentComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'home',
@@ -29,8 +33,10 @@ const routes: Routes = [
       {
         path: 'base-de-datos',
         loadChildren: () =>
-          import('./modules/database/database.module').then((m) => m.DatabaseModule),
-      }
+          import('./modules/database/database.module').then(
+            (m) => m.DatabaseModule
+          ),
+      },
     ],
   },
   {

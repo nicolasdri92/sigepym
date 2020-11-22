@@ -1,60 +1,46 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+// Services
+import { TokenService } from '../../../core/services/token.service';
+
+const AUTH_API = 'http://localhost:3977/api';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  url = 'http://localhost:3977/api';
+  constructor(private http: HttpClient, private token: TokenService) {}
 
-  constructor(private http: HttpClient) {}
-
-  get(params, token): Observable<any> {
-    const headers = new HttpHeaders({
+  httpOptions = {
+    headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: token,
-    });
-    return this.http.get(this.url + params, { headers }).pipe(
-      catchError((err) => {
-        return throwError(err.error.message);
-      })
+      Authorization: this.token.getToken(),
+    }),
+  };
+
+  get(params: string): Observable<any> {
+    return this.http.get(AUTH_API + params, this.httpOptions);
+  }
+
+  post(params: string, data: any): Observable<any> {
+    return this.http.post(
+      AUTH_API + params,
+      JSON.stringify(data),
+      this.httpOptions
     );
   }
 
-  post(params, data): Observable<any> {
-    const body = JSON.stringify(data);
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(this.url + params, body, { headers }).pipe(
-      catchError((err) => {
-        return throwError(err.error.message);
-      })
+  update(params: string, data: any): Observable<any> {
+    return this.http.put(
+      AUTH_API + params,
+      JSON.stringify(data),
+      this.httpOptions
     );
   }
 
-  update(params, data, token): Observable<any> {
-    const body = JSON.stringify(data);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: token,
-    });
-    return this.http.put(this.url + params, body, { headers }).pipe(
-      catchError((err) => {
-        return throwError(err.error.message);
-      })
-    );
-  }
-
-  delete(params, token): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: token,
-    });
-    return this.http.delete(this.url + params, { headers }).pipe(
-      catchError((err) => {
-        return throwError(err.error.message);
-      })
-    );
+  delete(params: string): Observable<any> {
+    return this.http.delete(AUTH_API + params, this.httpOptions);
   }
 }
