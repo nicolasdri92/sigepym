@@ -1,16 +1,17 @@
 <div class="dialog-box">
-  <div class="dialog-header">
+  <div class="dialog-container">
     <h3>
       <span>{{ data.title }}</span>
     </h3>
-  </div>
-
-  <div class="dialog-content">
-    <ng-container *ngTemplateOutlet="data.template"> </ng-container>
+    <mat-tab-group>
+      <mat-tab *ngFor="let tab of data.tabs" [label]="tab.title">
+        <ng-container *ngIf="tab.index == 0; then data.firstTemplate; else data.secondTemplate" matTabContent></ng-container>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 
   <div class="dialog-footer">
-    <button type="submit" (click)="save()">
+    <button type="submit" (click)="save()" [disabled]="!data.form.valid">
       <i class="material-icons">done</i>
       <span>guardar</span>
     </button>
@@ -19,5 +20,3 @@
     </button>
   </div>
 </div>
-
-

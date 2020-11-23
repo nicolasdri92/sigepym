@@ -1,8 +1,8 @@
-.dialog-header {
-  border-bottom: 1px solid #eee;
-  display: flex;
+.dialog-container {
+  display: grid;
   padding: 24px 24px 5px;
   h3 {
+    grid-area: title;
     span {
       color: #414141;
       font-size: 16px;
@@ -10,9 +10,27 @@
       text-transform: uppercase;
     }
   }
+  mat-tab-group {
+    grid-area: tab;
+    .mat-tab-header {
+      display: block;
+      .mat-tab-label-container {
+        display: block;
+        .mat-tab-labels {
+          display: flex;
+          column-gap: 20px;
+          justify-content: flex-end;
+          padding: 5px;
+          .mat-tab-label {
+            height: auto;
+            padding: 0;
+            min-width: auto;
+          }
+        }
+      }
+    }
+  }
 }
-
-
 
 .dialog-footer {
   border-top: 1px solid #eee;
@@ -37,12 +55,26 @@
       background-color: #eaf5ff;
       border: 1px solid #6f829a;
       color: #6f829a;
+      &:hover {
+        background-color: #6f829a;
+        border: 1px solid #eaf5ff;
+        color: #eaf5ff;
+      }
+      &:disabled {
+        background-color: #00000012;
+        border: 1px solid #00000012;
+        color: #00000026;
+        cursor: default;
+      }
     }
     &:nth-of-type(2) {
-      background-color: transparent;
-      border: 1px solid #00000026;
-      color: #00000026;
+      background-color: #9fa4aa;
+      border: 1px solid #9fa4aa;
+      color: #ffffff;
       margin-left: auto;
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 }

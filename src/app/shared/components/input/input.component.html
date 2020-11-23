@@ -2,5 +2,6 @@
   type="{{ data.type }}"
   [value]="value"
   [disabled]="isDisabled"
+  [attr.required]="data.attribute === 'required'"
   (input)="onInput($event.target.value)"
 />

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // Components
 import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
@@ -10,11 +10,12 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.scss'],
 })
-export class ClientComponent implements OnInit {
+export class ClientComponent {
   title: string = 'clientes';
   clientForm: FormGroup;
 
-  @ViewChild('client') client: TemplateRef<any>;
+  @ViewChild('general') general: TemplateRef<HTMLElement>;
+  @ViewChild('salesAndBilling') salesAndBilling: TemplateRef<HTMLElement>;
 
   btn_add = { type: 'new', title: 'nuevo cliente' };
   tabs = [
@@ -22,43 +23,95 @@ export class ClientComponent implements OnInit {
     { title: 'Activos', count: 32 },
     { title: 'Inactivos', count: 15 },
   ];
+  dialogTabs = [
+    { title: 'General', index: 0 },
+    { title: 'Ventas y Facturación', index: 1 },
+  ];
   itemList = {
     general: [
-      { title: 'razón social *', type: 'text', name: 'business' },
-      { title: 'nombre', type: 'text', name: 'name' },
-      { title: 'apellido', type: 'text', name: 'surname' },
-      { title: 'email', type: 'email', name: 'email' },
+      {
+        title: 'razón social *',
+        type: 'text',
+        name: 'business',
+        attribute: 'required',
+      },
       { title: 'página web', type: 'text', name: 'web' },
+      { title: 'nombre', type: 'text', name: 'name' },
       { title: 'direccion', type: 'text', name: 'address' },
+      { title: 'apellido', type: 'text', name: 'surname' },
       { title: 'numero', type: 'number', name: 'number' },
-      { title: 'departamento', type: 'text', name: 'department' },
+      {
+        title: 'departamento',
+        type: 'text',
+        name: 'department',
+      },
       { title: 'telefono', type: 'text', name: 'phone' },
       { title: 'celular', type: 'text', name: 'mobile' },
       { title: 'provincia', type: 'select', name: 'state' },
       { title: 'codigo postal', type: 'text', name: 'code' },
+      { title: 'email', type: 'email', name: 'email' },
       { title: 'localidad', type: 'select', name: 'city' },
-      { title: 'observación', type: 'text', name: 'observation' },
     ],
     sales: [
-      { title: 'categoria ventas', type: 'select', name: 'sales_category' },
-      { title: 'descuento general', type: 'text', name: 'sales_discount' },
-      { title: 'observación', type: 'text', name: 'sales_observation' },
+      {
+        title: 'categoria ventas',
+        type: 'select',
+        name: 'sales_category',
+        attribute: '',
+      },
+      {
+        title: 'descuento general',
+        type: 'text',
+        name: 'sales_discount',
+        attribute: '',
+      },
     ],
     billing: [
-      { title: 'razón social', type: 'text', name: 'billing_business' },
-      { title: 'nombre', type: 'text', name: 'billing_name' },
-      { title: 'apellido', type: 'text', name: 'billing_surname' },
-      { title: 'email', type: 'email', name: 'billing_email' },
+      {
+        title: 'razón social',
+        type: 'text',
+        name: 'billing_business',
+      },
       { title: 'página web', type: 'text', name: 'billing_web' },
-      { title: 'direccion', type: 'text', name: 'billing_address' },
-      { title: 'numero', type: 'number', name: 'billing_number' },
-      { title: 'departamento', type: 'text', name: 'billing_department' },
+      { title: 'nombre', type: 'text', name: 'billing_name' },
+      {
+        title: 'direccion',
+        type: 'text',
+        name: 'billing_address',
+      },
+      {
+        title: 'apellido',
+        type: 'text',
+        name: 'billing_surname',
+      },
+      {
+        title: 'numero',
+        type: 'number',
+        name: 'billing_number',
+      },
+      {
+        title: 'departamento',
+        type: 'text',
+        name: 'billing_department',
+      },
       { title: 'telefono', type: 'text', name: 'billing_phone' },
       { title: 'celular', type: 'text', name: 'billing_mobile' },
-      { title: 'provincia', type: 'select', name: 'billing_state' },
-      { title: 'codigo postal', type: 'text', name: 'billing_code' },
-      { title: 'localidad', type: 'select', name: 'billing_city' },
-      { title: 'observación', type: 'text', name: 'billing_observation' },
+      {
+        title: 'provincia',
+        type: 'select',
+        name: 'billing_state',
+      },
+      {
+        title: 'codigo postal',
+        type: 'text',
+        name: 'billing_code',
+      },
+      { title: 'email', type: 'email', name: 'billing_email' },
+      {
+        title: 'localidad',
+        type: 'select',
+        name: 'billing_city',
+      },
     ],
   };
 
@@ -66,16 +119,16 @@ export class ClientComponent implements OnInit {
     this.buildForm();
   }
 
-  ngOnInit(): void {}
-
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.data = {
       title: 'nuevo cliente',
-      template: this.client,
+      tabs: this.dialogTabs,
       form: this.clientForm,
+      firstTemplate: this.general,
+      secondTemplate: this.salesAndBilling,
     };
 
     const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
@@ -98,10 +151,8 @@ export class ClientComponent implements OnInit {
       state: '',
       code: '',
       city: '',
-      observation: '',
       sales_category: '',
       sales_discount: '',
-      sales_observation: '',
       billing_business: '',
       billing_name: '',
       billing_surname: '',
@@ -115,7 +166,6 @@ export class ClientComponent implements OnInit {
       billing_state: '',
       billing_code: '',
       billing_city: '',
-      billing_observation: '',
     });
   }
 }

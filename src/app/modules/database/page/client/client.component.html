@@ -23,7 +23,7 @@
   <div class="client-table">table</div>
 </div>
 
-<ng-template #client>
+<ng-template #general>
   <div class="dialog-content">
     <form [formGroup]="clientForm">
       <ul>
@@ -31,46 +31,55 @@
           <label>{{ item.title }}</label>
           <app-input
             *ngIf="item.type !== 'select'"
-            [data]="item.type"
+            [data]="item"
             [formControlName]="item.name"
           ></app-input>
           <app-select
             *ngIf="item.type === 'select'"
-            [data]="item.type"
+            [data]="item"
             [formControlName]="item.name"
           ></app-select>
         </li>
+      </ul>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #salesAndBilling>
+  <div class="dialog-content">
+    <form [formGroup]="clientForm">
+      <ul>
         <div class="label-box">
           <label>Ventas</label>
-          <i class="material-icons">info</i>
+          <i class="material-icons" matTooltip="Info about the action" matTooltipPosition="right">info</i>
         </div>
         <li *ngFor="let item of itemList.sales" [ngClass]="item.name">
           <label>{{ item.title }}</label>
           <app-input
             *ngIf="item.type !== 'select'"
-            [data]="item.type"
+            [data]="item"
             [formControlName]="item.name"
           ></app-input>
           <app-select
             *ngIf="item.type === 'select'"
-            [data]="item.type"
+            [data]="item"
             [formControlName]="item.name"
           ></app-select>
         </li>
         <div class="label-box">
           <label>Facturación</label>
-          <i class="material-icons">info</i>
+          <i class="material-icons" matTooltip="Info about the action" matTooltipPosition="right">info</i>
         </div>
         <li *ngFor="let item of itemList.billing" [ngClass]="item.name">
           <label>{{ item.title }}</label>
           <app-input
             *ngIf="item.type !== 'select'"
-            [data]="item.type"
+            [data]="item"
             [formControlName]="item.name"
           ></app-input>
           <app-select
             *ngIf="item.type === 'select'"
-            [data]="item.type"
+            [data]="item"
             [formControlName]="item.name"
           ></app-select>
         </li>
