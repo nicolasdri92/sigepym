@@ -1,7 +1,15 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // Components
 import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
+// Services
+import { HttpService } from '../../../../shared/services/http/http.service';
 // Material
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
@@ -9,23 +17,33 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
   selector: 'app-client',
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
-export class ClientComponent {
+export class ClientComponent implements OnInit {
   title: string = 'clientes';
   clientForm: FormGroup;
-
-  @ViewChild('general') general: TemplateRef<HTMLElement>;
-  @ViewChild('salesAndBilling') salesAndBilling: TemplateRef<HTMLElement>;
+  states;
+  docs: [];
+  totalDocs: number;
+  limit: number;
+  totalPages: number;
+  page: number;
+  pagingCounter: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  prevPage: number;
+  nextPage: number;
 
   btn_add = { type: 'new', title: 'nuevo cliente' };
-  tabs = [
-    { title: 'Todos', count: 47 },
-    { title: 'Activos', count: 32 },
-    { title: 'Inactivos', count: 15 },
+  clientTabs = [
+    { name: 'active', title: 'Activos' },
+    { name: 'inactive', title: 'Inactivos' },
+    { name: 'recycleBin', title: 'Papelera' },
   ];
   dialogTabs = [
-    { title: 'General', index: 0 },
-    { title: 'Ventas y Facturación', index: 1 },
+    { name: 'general', title: 'General' },
+    { name: 'sell', title: 'Ventas' },
+    { name: 'billing', title: 'Facturación' },
   ];
   itemList = {
     general: [
@@ -52,17 +70,17 @@ export class ClientComponent {
       { title: 'email', type: 'email', name: 'email' },
       { title: 'localidad', type: 'select', name: 'city' },
     ],
-    sales: [
+    sell: [
       {
         title: 'categoria ventas',
         type: 'select',
-        name: 'sales_category',
+        name: 'sell_category',
         attribute: '',
       },
       {
         title: 'descuento general',
         type: 'text',
-        name: 'sales_discount',
+        name: 'sell_discount',
         attribute: '',
       },
     ],
@@ -115,11 +133,54 @@ export class ClientComponent {
     ],
   };
 
-  constructor(private formBuilder: FormBuilder, private dialog: MatDialog) {
+  columns = [
+    { name: 'ID' },
+    { name: 'Razón Social' },
+    { name: 'Cliente' },
+    { name: 'Contacto' },
+    { name: 'Domicilio' },
+    { name: 'Ubicación' },
+    { name: 'Acciones' },
+  ];
+
+  constructor(
+    private _httpService: HttpService,
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog
+  ) {
     this.buildForm();
   }
 
+  ngOnInit(): void {
+    this.getClient();
+  }
+
+  private getClient() {
+    this._httpService.get('/client').subscribe(
+      (res) => {
+        this.docs = res.client.docs;
+        this.totalDocs = res.client.totalDocs;
+        this.limit = res.client.limit;
+        this.totalPages = res.client.totalPages;
+        this.page = res.client.page;
+        this.pagingCounter = res.client.pagingCounter;
+        this.hasPrevPage = res.client.hasPrevPage;
+        this.hasNextPage = res.client.hasNextPage;
+        this.prevPage = res.client.prevPage;
+        this.nextPage = res.client.nextPage;
+      },
+      (err) => {}
+    );
+  }
+
+  private getStates() {
+    this._httpService.get('/state').subscribe((res) => {
+       this.states = res.states;
+    });
+  }
+
   openDialog(): void {
+    this.getStates();
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -127,8 +188,8 @@ export class ClientComponent {
       title: 'nuevo cliente',
       tabs: this.dialogTabs,
       form: this.clientForm,
-      firstTemplate: this.general,
-      secondTemplate: this.salesAndBilling,
+      itemList: this.itemList,
+      state: this.states,
     };
 
     const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
@@ -151,8 +212,8 @@ export class ClientComponent {
       state: '',
       code: '',
       city: '',
-      sales_category: '',
-      sales_discount: '',
+      sell_category: '',
+      sell_discount: '',
       billing_business: '',
       billing_name: '',
       billing_surname: '',

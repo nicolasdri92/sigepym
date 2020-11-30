@@ -1,0 +1,43 @@
+<table>
+  <thead>
+    <tr>
+      <th *ngFor="let column of columns">{{ column.name }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of data">
+      <td class="id">000001</td>
+      <td class="business">{{ item.business }}</td>
+      <td class="client">
+        <ul>
+          <li>{{ item.name }}</li>
+          <li>{{ item.surname }}</li>
+        </ul>
+      </td>
+      <td class="contact">
+        <ul>
+          <li>{{ item.phone }}</li>
+          <li>{{ item.email }}</li>
+        </ul>
+      </td>
+      <td class="address">
+        <ul>
+          <li>{{ item.address }} {{ item.number }}</li>
+          <li>{{ item.department }}</li>
+        </ul>
+      </td>
+      <td class="location">
+        <ul>
+          <li>{{ item.city }}</li>
+          <li>{{ item.state }}</li>
+        </ul>
+      </td>
+      <td class="action">
+        <i class="material-icons" matTooltip="Ver Cliente">supervisor_account</i>
+        <i class="material-icons" matTooltip="Desactivar Cliente">archive</i>
+        <i class="material-icons" matTooltip="Editar Cliente">edit</i>
+        <i class="material-icons" matTooltip="Eliminar Cliente">delete</i>
+      </td>
+    </tr>
+  </tbody>
+</table>

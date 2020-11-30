@@ -3,87 +3,59 @@
     <h2>
       {{ title | uppercase }}
     </h2>
-    <div class="tabs">
-      <ul>
-        <li *ngFor="let tab of tabs">
-          <span>{{ tab.title }} ({{ tab.count }})</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="client-btn">
-    <div class="search">
-      <i class="material-icons">search</i>
-      <input type="search" placeholder="Buscar Cliente ..." />
-    </div>
     <div class="client-add">
       <app-button [data]="btn_add" (click)="openDialog()"></app-button>
     </div>
   </div>
-  <div class="client-table">table</div>
+
+  <div class="client-table">
+    <mat-tab-group>
+      <mat-tab *ngFor="let tab of clientTabs" [label]="tab.title">
+        <div class="client-btn">
+          <div class="search">
+            <i class="material-icons">search</i>
+            <input type="search" placeholder="Buscar Cliente ..." />
+          </div>
+          <div class="import">
+            <span>importar</span>
+          </div>
+          <div class="export">
+            <span>exportar</span>
+          </div>
+        </div>
+        <ng-container [ngSwitch]="tab.name">
+          <ng-container
+            *ngSwitchCase="'active'"
+            [ngTemplateOutlet]="active"
+          ></ng-container>
+          <ng-container
+            *ngSwitchCase="'inactive'"
+            [ngTemplateOutlet]="inactive"
+          ></ng-container>
+        </ng-container>
+        <app-paginator
+          *ngIf="this.totalDocs > 0"
+          [totalDocs]="this.totalDocs"
+          [limit]="this.limit"
+          [totalPages]="this.totalPages"
+          [page]="this.page"
+          [pagingCounter]="this.pagingCounter"
+          [hasPrevPage]="this.hasPrevPage"
+          [hasNextPage]="this.hasNextPage"
+          [prevPage]="this.prevPage"
+          [nextPage]="this.nextPage"
+        ></app-paginator>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>
 
-<ng-template #general>
-  <div class="dialog-content">
-    <form [formGroup]="clientForm">
-      <ul>
-        <li *ngFor="let item of itemList.general" [ngClass]="item.name">
-          <label>{{ item.title }}</label>
-          <app-input
-            *ngIf="item.type !== 'select'"
-            [data]="item"
-            [formControlName]="item.name"
-          ></app-input>
-          <app-select
-            *ngIf="item.type === 'select'"
-            [data]="item"
-            [formControlName]="item.name"
-          ></app-select>
-        </li>
-      </ul>
-    </form>
+<ng-template #active>
+  <div class="wrapper-table">
+    <app-table [columns]="columns" [data]="this.docs"></app-table>
   </div>
 </ng-template>
 
-<ng-template #salesAndBilling>
-  <div class="dialog-content">
-    <form [formGroup]="clientForm">
-      <ul>
-        <div class="label-box">
-          <label>Ventas</label>
-          <i class="material-icons" matTooltip="Info about the action" matTooltipPosition="right">info</i>
-        </div>
-        <li *ngFor="let item of itemList.sales" [ngClass]="item.name">
-          <label>{{ item.title }}</label>
-          <app-input
-            *ngIf="item.type !== 'select'"
-            [data]="item"
-            [formControlName]="item.name"
-          ></app-input>
-          <app-select
-            *ngIf="item.type === 'select'"
-            [data]="item"
-            [formControlName]="item.name"
-          ></app-select>
-        </li>
-        <div class="label-box">
-          <label>Facturación</label>
-          <i class="material-icons" matTooltip="Info about the action" matTooltipPosition="right">info</i>
-        </div>
-        <li *ngFor="let item of itemList.billing" [ngClass]="item.name">
-          <label>{{ item.title }}</label>
-          <app-input
-            *ngIf="item.type !== 'select'"
-            [data]="item"
-            [formControlName]="item.name"
-          ></app-input>
-          <app-select
-            *ngIf="item.type === 'select'"
-            [data]="item"
-            [formControlName]="item.name"
-          ></app-select>
-        </li>
-      </ul>
-    </form>
-  </div>
-</ng-template>
+<ng-template #inactive></ng-template>
+
+<ng-template #recycleBin></ng-template>

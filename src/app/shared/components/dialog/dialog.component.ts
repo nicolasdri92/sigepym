@@ -1,4 +1,10 @@
-import { Component, Inject, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Inject,
+  TemplateRef,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -9,6 +15,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   encapsulation: ViewEncapsulation.None,
 })
 export class DialogComponent {
+  @ViewChild('general') general: TemplateRef<HTMLElement>;
+  @ViewChild('sell') sell: TemplateRef<HTMLElement>;
+  @ViewChild('billing') billing: TemplateRef<HTMLElement>;
+
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA)
@@ -16,8 +26,8 @@ export class DialogComponent {
       title: string;
       tabs: any;
       form: FormGroup;
-      firstTemplate;
-      secondTemplate;
+      itemList;
+      state;
     }
   ) {}
 

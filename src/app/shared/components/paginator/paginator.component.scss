@@ -1,0 +1,26 @@
+tfoot {
+  width: 100%;
+  display: block;
+  tr {
+    align-items: center;
+    color: #010101a0;
+    column-gap: 25px;
+    display: flex;
+    font-size: 12px;
+    justify-content: flex-end;
+    padding: 20px;
+    td {
+      display: flex;
+      align-items: center;
+      i {
+        cursor: pointer;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+      &:last-of-type {
+        column-gap: 10px;
+      }
+    }
+  }
+}

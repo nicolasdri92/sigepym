@@ -2,6 +2,7 @@
   display: grid;
   grid-template-rows: 2fr repeat(15, 1fr);
   height: 100%;
+  position: fixed;
   ul {
     &:nth-of-type(13),
     &:nth-of-type(14),
@@ -48,12 +49,12 @@
       &.active {
         background-color: #e2e9f8;
         border-right: 8px solid #89a9ea;
+        width: 245px;
       }
       &:hover {
         opacity: 0.8;
       }
     }
-    
   }
 }
 
@@ -73,6 +74,9 @@
           span {
             font-size: 12px;
           }
+        }
+        &.active {
+          width: 195px;
         }
       }
     }

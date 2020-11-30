@@ -1,18 +1,41 @@
 <div class="dialog-box">
-  <div class="dialog-container">
+  <div class="dialog-header">
     <h3>
       <span>{{ data.title }}</span>
     </h3>
+    <i class="material-icons" (click)="close()">close</i>
+  </div>
+
+  <div class="dialog-container">
     <mat-tab-group>
-      <mat-tab *ngFor="let tab of data.tabs" [label]="tab.title">
-        <ng-container *ngIf="tab.index == 0; then data.firstTemplate; else data.secondTemplate" matTabContent></ng-container>
+      <mat-tab *ngFor="let tab of data.tabs">
+        <ng-container [ngSwitch]="tab.name">
+          <ng-container *ngSwitchCase="'general'" [ngTemplateOutlet]="general">
+            <ng-template mat-tab-label>
+              <i class="material-icons">supervisor_account</i>
+            </ng-template>
+          </ng-container>
+          <ng-container
+            *ngSwitchCase="'sell'"
+            [ngTemplateOutlet]="sell"
+          >
+          <ng-template mat-tab-label>
+            <i class="material-icons">point_of_sale</i>
+          </ng-template></ng-container>
+          <ng-container
+            *ngSwitchCase="'billing'"
+            [ngTemplateOutlet]="billing"
+          >
+          <ng-template mat-tab-label>
+            <i class="material-icons">ballot</i>
+          </ng-template></ng-container>
+        </ng-container>
       </mat-tab>
     </mat-tab-group>
   </div>
 
   <div class="dialog-footer">
     <button type="submit" (click)="save()" [disabled]="!data.form.valid">
-      <i class="material-icons">done</i>
       <span>guardar</span>
     </button>
     <button type="submit" (click)="close()">
@@ -20,3 +43,89 @@
     </button>
   </div>
 </div>
+
+<ng-template #general matTabContent>
+
+  <div class="dialog-content">
+    <form [formGroup]="data.form">
+      <ul>
+        <li *ngFor="let item of data.itemList.general" [ngClass]="item.name">
+          <label>{{ item.title }}</label>
+          <app-input
+            *ngIf="item.type !== 'select'"
+            [data]="item"
+            [formControlName]="item.name"
+          ></app-input>
+          <app-select
+            *ngIf="item.type === 'select'"
+            [data]="item"
+            [optionList]="data.state"
+            [formControlName]="item.name"
+          ></app-select>
+        </li>
+      </ul>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #sell matTabContent>
+  <div class="dialog-content">
+    <form [formGroup]="data.form">
+      <ul>
+        <div class="label-box">
+          <label>Ventas</label>
+          <i
+            class="material-icons"
+            matTooltip="Info about the action"
+            matTooltipPosition="right"
+            >info</i
+          >
+        </div>
+        <li *ngFor="let item of data.itemList.sell" [ngClass]="item.name">
+          <label>{{ item.title }}</label>
+          <app-input
+            *ngIf="item.type !== 'select'"
+            [data]="item"
+            [formControlName]="item.name"
+          ></app-input>
+          <app-select
+            *ngIf="item.type === 'select'"
+            [data]="item"
+            [formControlName]="item.name"
+          ></app-select>
+        </li>
+      </ul>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #billing matTabContent>
+  <div class="dialog-content">
+    <form [formGroup]="data.form">
+      <ul>
+        <div class="label-box">
+          <label>Facturación</label>
+          <i
+            class="material-icons"
+            matTooltip="Info about the action"
+            matTooltipPosition="right"
+            >info</i
+          >
+        </div>
+        <li *ngFor="let item of data.itemList.billing" [ngClass]="item.name">
+          <label>{{ item.title }}</label>
+          <app-input
+            *ngIf="item.type !== 'select'"
+            [data]="item"
+            [formControlName]="item.name"
+          ></app-input>
+          <app-select
+            *ngIf="item.type === 'select'"
+            [data]="item"
+            [formControlName]="item.name"
+          ></app-select>
+        </li>
+      </ul>
+    </form>
+  </div>
+</ng-template>

@@ -1,79 +1,143 @@
-.dialog-container {
-  display: grid;
-  padding: 24px 24px 5px;
-  h3 {
-    grid-area: title;
-    span {
-      color: #414141;
-      font-size: 16px;
-      font-weight: 600;
-      text-transform: uppercase;
+.dialog-box {
+  border-top: 5px solid #89a9ea;
+  padding: 25px 25px 0;
+  .dialog-header {
+    display: flex;
+    padding-bottom: 20px;
+    h3 {
+      span {
+        color: #00000050;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+    }
+    i {
+      color: #00000050;
+      cursor: pointer;
+      margin-left: auto;
+      font-size: 14px;
     }
   }
-  mat-tab-group {
-    grid-area: tab;
+  .dialog-container {
+    display: grid;
     .mat-tab-header {
-      display: block;
-      .mat-tab-label-container {
-        display: block;
-        .mat-tab-labels {
+      .mat-tab-label {
+        font-weight: 600;
+        height: 40px;
+        min-width: 0;
+        padding: 10px 25px;
+        &.mat-tab-label-active {
+          background-color: #ffffff;
+          border: 1px solid #00000026;
+          border-bottom: none;
+          opacity: 1;
+        }
+      }
+      .mat-ink-bar {
+        visibility: hidden !important;
+      }
+    }
+    .dialog-content {
+      padding: 10px;
+      ul {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px 25px;
+        li {
+          display: grid;
+          row-gap: 5px;
+          label {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: capitalize;
+          }
+          &.business,
+          &.name,
+          &.surname,
+          &.email,
+          &.sell_category,
+          &.billing_business,
+          &.billing_name,
+          &.billing_surname,
+          &.billing_email {
+            grid-column: 1 / 3;
+          }
+          &.web,
+          &.address,
+          &.city,
+          &.sell_discount,
+          &.billing_web,
+          &.billing_address,
+          &.billing_city {
+            grid-column: 3 / 5;
+          }
+        }
+        .label-box {
+          align-items: center;
+          background-color: #9a9ea9;
+          border-radius: 5px;
+          color: #fff;
+          column-gap: 10px;
           display: flex;
-          column-gap: 20px;
-          justify-content: flex-end;
-          padding: 5px;
-          .mat-tab-label {
-            height: auto;
-            padding: 0;
-            min-width: auto;
+          grid-column: 1/-1;
+          padding: 5px 15px;
+          label {
+            font-size: 16px;
+            font-weight: 600;
+          }
+          i {
+            cursor: help;
           }
         }
       }
     }
   }
-}
 
-.dialog-footer {
-  border-top: 1px solid #eee;
-  display: flex;
-  padding: 10px 24px;
-  button {
-    align-items: center;
-    border-radius: 5px;
-    cursor: pointer;
+  .dialog-footer {
+    border-top: 1px solid #eee;
     display: flex;
-    font-weight: 600;
-    gap: 5px;
-    padding: 5px 15px;
-    i {
-      font-size: 15px;
+    padding: 20px 0;
+    justify-content: flex-end;
+    column-gap: 20px;
+    button {
+      align-items: center;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
       font-weight: 600;
-    }
-    span {
-      text-transform: capitalize;
-    }
-    &:nth-of-type(1) {
-      background-color: #eaf5ff;
-      border: 1px solid #6f829a;
-      color: #6f829a;
-      &:hover {
-        background-color: #6f829a;
-        border: 1px solid #eaf5ff;
-        color: #eaf5ff;
+      gap: 5px;
+      padding: 5px 15px;
+      i {
+        font-size: 15px;
+        font-weight: 600;
       }
-      &:disabled {
-        background-color: #00000012;
-        border: 1px solid #00000012;
-        color: #00000026;
-        cursor: default;
+      span {
+        text-transform: capitalize;
       }
-    }
-    &:nth-of-type(2) {
-      background-color: #9fa4aa;
-      border: 1px solid #9fa4aa;
-      color: #ffffff;
-      margin-left: auto;
-      &:hover {
-        opacity: 0.8;
+      &:nth-of-type(1) {
+        background-color: #89a9ea;
+        border: 1px solid #89a9ea;
+        color: #ffffff;
+        &:hover {
+          background-color: #6f829a;
+          border: 1px solid #eaf5ff;
+          color: #eaf5ff;
+        }
+        &:disabled {
+          background-color: #00000012;
+          border: 1px solid #00000012;
+          color: #00000026;
+          cursor: default;
+        }
+      }
+      &:nth-of-type(2) {
+        background-color: #9fa4aa;
+        border: 1px solid #9fa4aa;
+        color: #ffffff;
+        &:hover {
+          opacity: 0.8;
+        }
       }
     }
   }

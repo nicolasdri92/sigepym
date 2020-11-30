@@ -15,6 +15,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class SelectComponent implements ControlValueAccessor {
   @Input() data;
+  @Input() optionList;
+  @Input() style;
   value: string;
   isDisabled: boolean;
   onChange = (_: any) => {};

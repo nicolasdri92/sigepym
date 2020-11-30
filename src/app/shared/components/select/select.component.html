@@ -1,3 +1,5 @@
 <select>
-  <option value="">test</option>
+  <option *ngFor="let option of optionList" value="option.id">
+    {{ option.nombre }}
+  </option>
 </select>

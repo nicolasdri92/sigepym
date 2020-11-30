@@ -20,27 +20,27 @@ export class HttpService {
     }),
   };
 
-  get(params: string): Observable<any> {
-    return this.http.get(AUTH_API + params, this.httpOptions);
+  get(path: string): Observable<any> {
+    return this.http.get(AUTH_API + path, this.httpOptions);
   }
 
-  post(params: string, data: any): Observable<any> {
+  post(path: string, data: any): Observable<any> {
     return this.http.post(
-      AUTH_API + params,
+      AUTH_API + path,
       JSON.stringify(data),
       this.httpOptions
     );
   }
 
-  update(params: string, data: any): Observable<any> {
+  update(path: string, data: any): Observable<any> {
     return this.http.put(
-      AUTH_API + params,
+      AUTH_API + path,
       JSON.stringify(data),
       this.httpOptions
     );
   }
 
-  delete(params: string): Observable<any> {
-    return this.http.delete(AUTH_API + params, this.httpOptions);
+  delete(path: string): Observable<any> {
+    return this.http.delete(AUTH_API + path, this.httpOptions);
   }
 }

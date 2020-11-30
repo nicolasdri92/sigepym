@@ -1,0 +1,15 @@
+<tfoot>
+  <tr>
+    <td>
+      Items por pagina: <app-select [optionList]="itemPerPage"></app-select>
+    </td>
+    <td>{{ getTo() }} - {{ getFrom() }} de {{ totalDocs }}</td>
+    <td>
+      <i class="material-icons" [ngClass]="{ disabled: hasPrevPage == false }"
+        >keyboard_arrow_left</i
+      >
+      <i class="material-icons" [ngClass]="{ disabled: hasNextPage == false }" (click)="next()">keyboard_arrow_right</i
+      >
+    </td>
+  </tr>
+</tfoot>
